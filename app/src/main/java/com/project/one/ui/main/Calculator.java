@@ -13,8 +13,6 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 import com.project.one.R;
 
-import static com.project.one.ui.main.Calculator.Operation.PLUS;
-import static com.project.one.ui.main.Calculator.whatToDo.NOTHING;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +30,7 @@ public class Calculator extends Fragment {
     private String mParam2;
 
     enum Operation {
-        PLUS, MINUS, MULTIPLY, DIVIDE, NOTHING;
+        ADD, SUBTRACT, MULTIPLY, DIVIDE, NOTHING;
     }
 
     private int buffer, memory;
@@ -41,7 +39,7 @@ public class Calculator extends Fragment {
     public Calculator() {
         this.buffer = 0;
         this.memory = 0;
-        this.whatToDo = NOTHING;
+        this.whatToDo = Operation.NOTHING;
     }
 
     /**
@@ -117,21 +115,36 @@ public class Calculator extends Fragment {
             doEquals();
         });
         view.findViewById(R.id.divided).setOnClickListener(v -> {
-            if (this.whatToDo != NOTHING) {
-                doEquals();
-            }
-            this.memory = this.buffer;
+            prepareOperation(Operation.DIVIDE);
+        });
+        view.findViewById(R.id.minus).setOnClickListener(v -> {
+            prepareOperation(Operation.SUBTRACT);
+        });
+        view.findViewById(R.id.times).setOnClickListener(v -> {
+            prepareOperation(Operation.MULTIPLY);
+        });
+        view.findViewById(R.id.plus).setOnClickListener(v -> {
+            prepareOperation(Operation.ADD);
         });
 
         return view;
     }
 
+    private void prepareOperation(Operation whatToDo) {
+        if (this.whatToDo != Operation.NOTHING) {
+            doEquals();
+        }
+        this.memory = this.buffer;
+        this.buffer = 0;
+        this.whatToDo = whatToDo;
+    }
+
     private void doEquals() {
         switch (this.whatToDo) {
-            case PLUS:
+            case ADD:
                 this.buffer = this.memory + this.buffer;
                 break;
-            case MINUS:
+            case SUBTRACT:
                 this.buffer = this.memory - this.buffer;
                 break;
             case MULTIPLY:
@@ -143,11 +156,10 @@ public class Calculator extends Fragment {
             case NOTHING:
                 break;
             default:
-                Snackbar.make(view, "A fatal error has occurred", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Fatal error has occurred", Toast.LENGTH_SHORT).show();
         }
         this.memory = 0;
-        this.whatToDo = NOTHING;
+        this.whatToDo = Operation.NOTHING;
     }
 
     private void typeNumber(short number) {
