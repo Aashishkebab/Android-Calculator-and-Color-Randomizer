@@ -77,7 +77,12 @@ public class ColorChooser extends Fragment {
         View view = inflater.inflate(R.layout.fragment_color_chooser, container, false);
         Button buttonRandomize = view.findViewById(R.id.buttonRandomize);
         buttonRandomize.setOnClickListener(v -> {
-            ((EditText) view.findViewById(R.id.textToRandomize)).setTextColor(Color.parseColor("#" + Integer.toHexString(new Random().nextInt(0xFFFFFF))));
+            String hexString = Integer.toHexString(new Random().nextInt(0xFFFFFF));
+            while(hexString.length() < 6) {
+                hexString = "0" + hexString;
+            }
+            hexString = "#" + hexString;
+            ((EditText) view.findViewById(R.id.textToRandomize)).setTextColor(Color.parseColor(hexString));
         });
         return view;
     }
