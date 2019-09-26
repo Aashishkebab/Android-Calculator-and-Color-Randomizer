@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.project.one.R;
 
+import static com.project.one.ui.main.Calculator.Operation.PLUS;
 import static com.project.one.ui.main.Calculator.whatToDo.NOTHING;
 
 /**
@@ -32,12 +35,12 @@ public class Calculator extends Fragment {
         PLUS, MINUS, MULTIPLY, DIVIDE, NOTHING;
     }
 
-    private String buffer;
-    private int memory;
+    private int buffer, memory;
     private Operation whatToDo;
 
     public Calculator() {
         this.buffer = 0;
+        this.memory = 0;
         this.whatToDo = NOTHING;
     }
 
@@ -76,9 +79,78 @@ public class Calculator extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calculator, container, false);
 
-        view.findViewById(R.id.one)
+        view.findViewById(R.id.one).setOnClickListener(v -> {
+            typeNumber((short) 1);
+        });
+        view.findViewById(R.id.two).setOnClickListener(v -> {
+            typeNumber((short) 2);
+        });
+        view.findViewById(R.id.three).setOnClickListener(v -> {
+            typeNumber((short) 3);
+        });
+        view.findViewById(R.id.four).setOnClickListener(v -> {
+            typeNumber((short) 4);
+        });
+        view.findViewById(R.id.five).setOnClickListener(v -> {
+            typeNumber((short) 5);
+        });
+        view.findViewById(R.id.six).setOnClickListener(v -> {
+            typeNumber((short) 6);
+        });
+        view.findViewById(R.id.seven).setOnClickListener(v -> {
+            typeNumber((short) 7);
+        });
+        view.findViewById(R.id.eight).setOnClickListener(v -> {
+            typeNumber((short) 8);
+        });
+        view.findViewById(R.id.nine).setOnClickListener(v -> {
+            typeNumber((short) 9);
+        });
+        view.findViewById(R.id.delete).setOnClickListener(v -> {
+            this.buffer = this.buffer / 10;
+        });
+        view.findViewById(R.id.clear).setOnClickListener(v -> {
+            this.buffer = 0;
+            this.memory = 0;
+        });
+        view.findViewById(R.id.equals).setOnClickListener(v -> {
+            doEquals();
+        });
+        view.findViewById(R.id.divided).setOnClickListener(v -> {
+            if (this.whatToDo != NOTHING) {
+                doEquals();
+            }
+            this.memory = this.buffer;
+        });
 
         return view;
     }
 
+    private void doEquals() {
+        switch (this.whatToDo) {
+            case PLUS:
+                this.buffer = this.memory + this.buffer;
+                break;
+            case MINUS:
+                this.buffer = this.memory - this.buffer;
+                break;
+            case MULTIPLY:
+                this.buffer = this.memory * this.buffer;
+                break;
+            case DIVIDE:
+                this.buffer = this.memory / this.buffer;
+                break;
+            case NOTHING:
+                break;
+            default:
+                Snackbar.make(view, "A fatal error has occurred", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+        }
+        this.memory = 0;
+        this.whatToDo = NOTHING;
+    }
+
+    private void typeNumber(short number) {
+        this.buffer = this.buffer * 10 + number;
+    }
 }

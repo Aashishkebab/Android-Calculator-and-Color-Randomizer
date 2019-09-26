@@ -137,4 +137,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/nine" />
 
+    <Button
+            android:id="@+id/clear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="AC"
+            app:layout_constraintBottom_toTopOf="@id/seven"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/delete"/>
+
+    <Button
+            android:id="@+id/delete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="delete"
+            app:layout_constraintBottom_toTopOf="@id/seven"
+            app:layout_constraintStart_toEndOf="@id/clear"
+            app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
