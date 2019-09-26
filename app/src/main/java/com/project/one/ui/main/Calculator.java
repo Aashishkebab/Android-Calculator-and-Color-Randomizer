@@ -109,10 +109,12 @@ public class Calculator extends Fragment {
         });
         view.findViewById(R.id.delete).setOnClickListener(v -> {
             this.buffer = this.buffer / 10;
+            updateDisplay();
         });
         view.findViewById(R.id.clear).setOnClickListener(v -> {
             this.buffer = 0;
             this.memory = 0;
+            updateDisplay();
         });
         view.findViewById(R.id.equals).setOnClickListener(v -> {
             doEquals();
@@ -173,6 +175,6 @@ public class Calculator extends Fragment {
     }
 
     private void updateDisplay() {
-        ((TextView) this.view.findViewById(R.id.display)).setText(this.buffer);
+        ((TextView) this.view.findViewById(R.id.display)).setText(Integer.toString(this.buffer));
     }
 }

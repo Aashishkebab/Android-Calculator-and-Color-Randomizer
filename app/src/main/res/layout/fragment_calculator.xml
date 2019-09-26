@@ -159,7 +159,7 @@
             android:id="@+id/display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="0"
             android:textAlignment="textEnd"
             android:textSize="36sp"
             android:layout_marginBottom="33dp"
