@@ -1,6 +1,7 @@
 package com.project.one.ui.main;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ public class Calculator extends Fragment{
     View view;
     private double buffer, memory;
     private Operation whatToDo;
+
     public Calculator(){
         this.buffer = 0;
         this.memory = 0;
@@ -93,14 +95,18 @@ public class Calculator extends Fragment{
             typeNumber((short) 9);
         });
         view.findViewById(R.id.delete).setOnClickListener(v -> {
-            this.buffer = (long)(this.buffer / 10);
+            this.buffer = (long) (this.buffer / 10);
             updateDisplay(this.buffer);
         });
         view.findViewById(R.id.clear).setOnClickListener(v -> {
             clear();
         });
         view.findViewById(R.id.equals).setOnClickListener(v -> {
-            doEquals();
+            try{
+                doEquals();
+            }catch(ArithmeticException e){
+                displayError();
+            }
         });
         view.findViewById(R.id.divided).setOnClickListener(v -> {
             prepareOperation(Operation.DIVIDE);
@@ -125,7 +131,7 @@ public class Calculator extends Fragment{
         this.buffer = 0;
         this.memory = 0;
         this.whatToDo = Operation.NOTHING;
-        updateDisplay("");
+        updateDisplay(0);
     }
 
     /**
@@ -135,7 +141,12 @@ public class Calculator extends Fragment{
      */
     private void prepareOperation(Operation whatToDo){
         if(this.whatToDo != Operation.NOTHING){
-            doEquals();
+            try{
+                doEquals();
+            }catch(ArithmeticException e){
+                displayError();
+                return;
+            }
         }
         this.memory = this.buffer;
         this.buffer = 0;
@@ -143,8 +154,9 @@ public class Calculator extends Fragment{
         updateDisplay(this.buffer);
     }
 
+
     /**
-     * Does any pending operations and displays the result.
+     * Does any pending operation and returns the result
      */
     private void doEquals(){
         switch(this.whatToDo){
@@ -158,14 +170,9 @@ public class Calculator extends Fragment{
                 this.buffer = this.memory * this.buffer;
                 break;
             case DIVIDE:
-                try{
-                    this.buffer = this.memory / this.buffer;
-                }catch(ArithmeticException e){
-                    Toast.makeText(getActivity().getApplicationContext(),
-                                   "One cannot simply divide by zero.", Toast.LENGTH_LONG).show();
-                    clear();
-                    updateDisplay("ERROR");
-                    return;
+                this.buffer = this.memory / this.buffer;
+                if(Double.toString(this.buffer).equals("Infinity")){
+                    throw new ArithmeticException();
                 }
                 break;
             case NOTHING:
@@ -177,6 +184,11 @@ public class Calculator extends Fragment{
         this.memory = 0;
         this.whatToDo = Operation.NOTHING;
         updateDisplay(this.buffer);
+    }
+
+    private void displayError(){
+        clear();
+        updateDisplay("ERROR");
     }
 
     /**
@@ -197,16 +209,11 @@ public class Calculator extends Fragment{
      * @param number
      */
     private void updateDisplay(double number){
-        if(number == 0){
-            updateDisplay("");
+        if(number % 1 > 0){
+            updateDisplay(Double.toString(number));
         }
         else{
-            if(number % 1 > 0){
-                updateDisplay(Double.toString(number));
-            }
-            else{
-                updateDisplay(Long.toString((long) number));
-            }
+            updateDisplay(Long.toString((long) number));
         }
 
     }
@@ -218,6 +225,8 @@ public class Calculator extends Fragment{
      */
     private void updateDisplay(String whatToDisplay){
         ((TextView) this.view.findViewById(R.id.display)).setText(whatToDisplay);
+        ((TextView) this.view.findViewById(R.id.current_expression)).setText(
+                Double.toString(this.memory));
     }
 
     enum Operation{
