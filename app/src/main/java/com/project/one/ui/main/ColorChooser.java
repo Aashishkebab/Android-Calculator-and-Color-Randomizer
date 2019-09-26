@@ -3,6 +3,7 @@ package com.project.one.ui.main;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +25,7 @@ import java.util.Random;
  * create an instance of this fragment.
  */
 public class ColorChooser extends Fragment{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    Toast toast;
 
     private OnFragmentInteractionListener mListener;
 
@@ -76,10 +74,14 @@ public class ColorChooser extends Fragment{
             ((EditText) view.findViewById(R.id.textToRandomize))
                     .setTextColor(Color.parseColor(hexString));
             // Toast the color as required
-            Toast.makeText(getActivity().getApplicationContext(), hexString, Toast.LENGTH_LONG)
-                 .show();
+            try{
+                toast.cancel();
+            }catch(Exception e){}
+            this.toast = Toast.makeText(getActivity().getApplicationContext(), hexString, Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP|Gravity.LEFT, new Random().nextInt(699), new Random().nextInt(1111));
+            toast.show();
         });
-        
+
         return view;
     }
 
