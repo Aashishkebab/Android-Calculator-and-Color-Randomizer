@@ -75,8 +75,7 @@ public class ColorChooser extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_color_chooser, container, false);
-        Button buttonRandomize = view.findViewById(R.id.buttonRandomize);
-        buttonRandomize.setOnClickListener(v -> {
+        view.findViewById(R.id.buttonRandomize).setOnClickListener(v -> {
             String hexString = Integer.toHexString(new Random().nextInt(0xFFFFFF));
             while(hexString.length() < 6) {
                 hexString = "0" + hexString;

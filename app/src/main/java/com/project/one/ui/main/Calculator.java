@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import com.project.one.R;
 
+import static com.project.one.ui.main.Calculator.whatToDo.NOTHING;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Calculator#newInstance} factory method to
@@ -26,9 +28,17 @@ public class Calculator extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    enum Operation {
+        PLUS, MINUS, MULTIPLY, DIVIDE, NOTHING;
+    }
+
+    private String buffer;
+    private int memory;
+    private Operation whatToDo;
 
     public Calculator() {
-        // Required empty public constructor
+        this.buffer = 0;
+        this.whatToDo = NOTHING;
     }
 
     /**
@@ -64,7 +74,11 @@ public class Calculator extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calculator, container, false);
+        View view = inflater.inflate(R.layout.fragment_calculator, container, false);
+
+        view.findViewById(R.id.one)
+
+        return view;
     }
 
 }
