@@ -79,6 +79,7 @@ public class ColorChooser extends Fragment{
             Toast.makeText(getActivity().getApplicationContext(), hexString, Toast.LENGTH_LONG)
                  .show();
         });
+        
         return view;
     }
 
