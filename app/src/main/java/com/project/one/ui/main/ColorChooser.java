@@ -1,6 +1,7 @@
 package com.project.one.ui.main;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,8 +10,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.project.one.R;
+
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +74,12 @@ public class ColorChooser extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_color_chooser, container, false);
+        View view = inflater.inflate(R.layout.fragment_color_chooser, container, false);
+        Button buttonRandomize = view.findViewById(R.id.buttonRandomize);
+        buttonRandomize.setOnClickListener(v -> {
+            ((EditText) view.findViewById(R.id.textToRandomize)).setTextColor(Color.parseColor("#" + Integer.toHexString(new Random().nextInt(0xFFFFFF))));
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
