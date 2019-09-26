@@ -2,16 +2,14 @@ package com.project.one.ui.main;
 
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
+import androidx.fragment.app.Fragment;
+
 import com.project.one.R;
 
 
@@ -138,6 +136,9 @@ public class Calculator extends Fragment{
         return view;
     }
 
+    /**
+     * Clear everything, starts anew.
+     */
     private void clear(){
         this.buffer = 0;
         this.memory = 0;
