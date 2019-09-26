@@ -114,7 +114,7 @@ public class Calculator extends Fragment {
         view.findViewById(R.id.clear).setOnClickListener(v -> {
             this.buffer = 0;
             this.memory = 0;
-            updateDisplay();
+            updateDisplay("");
         });
         view.findViewById(R.id.equals).setOnClickListener(v -> {
             doEquals();
@@ -175,6 +175,15 @@ public class Calculator extends Fragment {
     }
 
     private void updateDisplay() {
-        ((TextView) this.view.findViewById(R.id.display)).setText(Integer.toString(this.buffer));
+        if (this.buffer == 0) {
+            updateDisplay("");
+        } else {
+            updateDisplay(Integer.toString(this.buffer));
+        }
+
+    }
+
+    private void updateDisplay(String whatToDisplay) {
+        ((TextView) this.view.findViewById(R.id.display)).setText(whatToDisplay);
     }
 }
