@@ -11,6 +11,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="0"
+            android:paddingVertical="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="11dp"/>
@@ -19,6 +20,7 @@
             android:id="@+id/equals"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingVertical="25dp"
             android:text="="
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/zero"
@@ -30,6 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="+"
+            android:paddingVertical="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/minus"
@@ -38,6 +41,7 @@
     <Button
             android:id="@+id/one"
             android:layout_width="0dp"
+            android:paddingVertical="25dp"
             android:layout_height="wrap_content"
             android:text="1"
             app:layout_constraintBottom_toTopOf="@id/zero"
@@ -46,6 +50,7 @@
     <Button
             android:id="@+id/two"
             android:layout_width="0dp"
+            android:paddingVertical="25dp"
             android:layout_height="wrap_content"
             android:text="2"
             app:layout_constraintBottom_toTopOf="@id/zero"
@@ -54,6 +59,7 @@
     <Button
             android:id="@+id/three"
             android:layout_width="0dp"
+            android:paddingVertical="25dp"
             android:layout_height="wrap_content"
             android:text="3"
             app:layout_constraintBottom_toTopOf="@id/zero"
@@ -62,6 +68,7 @@
     <Button
             android:id="@+id/minus"
             android:layout_width="0dp"
+            android:paddingVertical="25dp"
             android:layout_height="wrap_content"
             android:text="-"
             app:layout_constraintBottom_toTopOf="@id/zero"
@@ -71,6 +78,7 @@
     <Button
             android:id="@+id/four"
             android:layout_width="0dp"
+            android:paddingVertical="25dp"
             android:layout_height="wrap_content"
             android:text="4"
             app:layout_constraintBottom_toTopOf="@id/one"
@@ -79,6 +87,7 @@
     <Button
             android:id="@+id/five"
             android:layout_width="0dp"
+            android:paddingVertical="25dp"
             android:layout_height="wrap_content"
             android:text="5"
             app:layout_constraintBottom_toTopOf="@id/one"
@@ -87,6 +96,7 @@
     <Button
             android:id="@+id/six"
             android:layout_width="0dp"
+            android:paddingVertical="25dp"
             android:layout_height="wrap_content"
             android:text="6"
             app:layout_constraintBottom_toTopOf="@id/one"
@@ -95,6 +105,7 @@
     <Button
             android:id="@+id/times"
             android:layout_width="0dp"
+            android:paddingVertical="25dp"
             android:layout_height="wrap_content"
             android:text="x"
             app:layout_constraintBottom_toTopOf="@id/one"
@@ -104,6 +115,7 @@
     <Button
             android:id="@+id/seven"
             android:layout_width="0dp"
+            android:paddingVertical="25dp"
             android:layout_height="wrap_content"
             android:text="7"
             app:layout_constraintBottom_toTopOf="@id/four"
@@ -113,6 +125,7 @@
     <Button
             android:id="@+id/eight"
             android:layout_width="0dp"
+            android:paddingVertical="25dp"
             android:layout_height="wrap_content"
             android:text="8"
             app:layout_constraintBottom_toTopOf="@id/four"
@@ -122,6 +135,7 @@
     <Button
             android:id="@+id/nine"
             android:layout_width="0dp"
+            android:paddingVertical="25dp"
             android:layout_height="wrap_content"
             android:text="9"
             app:layout_constraintBottom_toTopOf="@id/four"
@@ -131,6 +145,7 @@
     <Button
             android:id="@+id/divided"
             android:layout_width="0dp"
+            android:paddingVertical="25dp"
             android:layout_height="wrap_content"
             android:text="÷"
             app:layout_constraintBottom_toTopOf="@id/four"
@@ -140,6 +155,7 @@
     <Button
             android:id="@+id/clear"
             android:layout_width="0dp"
+            android:paddingVertical="44dp"
             android:layout_height="wrap_content"
             android:text="AC"
             app:layout_constraintBottom_toTopOf="@id/seven"
@@ -149,6 +165,7 @@
     <Button
             android:id="@+id/delete"
             android:layout_width="0dp"
+            android:paddingVertical="44dp"
             android:layout_height="wrap_content"
             android:text="delete"
             app:layout_constraintBottom_toTopOf="@id/seven"
@@ -161,8 +178,8 @@
             android:layout_height="wrap_content"
             android:text="0"
             android:textAlignment="textEnd"
-            android:textSize="36sp"
-            android:layout_marginBottom="33dp"
+            android:textSize="77sp"
+            android:layout_marginBottom="25dp"
             app:layout_constraintBottom_toTopOf="@+id/delete"
             app:layout_constraintEnd_toEndOf="parent" />
 
