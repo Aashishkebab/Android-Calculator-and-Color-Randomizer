@@ -1,18 +1,15 @@
 package com.project.one.ui.main;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.project.one.R;
 
@@ -26,7 +23,7 @@ import java.util.Random;
  * Use the {@link ColorChooser#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ColorChooser extends Fragment {
+public class ColorChooser extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,7 +31,7 @@ public class ColorChooser extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ColorChooser() {
+    public ColorChooser(){
         // Required empty public constructor
     }
 
@@ -45,48 +42,50 @@ public class ColorChooser extends Fragment {
      * @return A new instance of fragment ColorChooser.
      */
     // TODO: Rename and change types and number of parameters
-    public static ColorChooser newInstance() {
+    public static ColorChooser newInstance(){
         ColorChooser fragment = new ColorChooser();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static CharSequence getTitle() {
+    public static CharSequence getTitle(){
         return "Random color chooser";
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState){
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_color_chooser, container, false);
         view.findViewById(R.id.buttonRandomize).setOnClickListener(v -> {
             String hexString = Integer.toHexString(new Random().nextInt(0xFFFFFF));
-            while(hexString.length() < 6) {
+            while(hexString.length() < 6){
                 hexString = "0" + hexString;
             }
             hexString = "#" + hexString;
-            ((EditText) view.findViewById(R.id.textToRandomize)).setTextColor(Color.parseColor(hexString));
-            Toast.makeText(getActivity().getApplicationContext(), hexString, Toast.LENGTH_LONG).show();
+            ((EditText) view.findViewById(R.id.textToRandomize))
+                    .setTextColor(Color.parseColor(hexString));
+            Toast.makeText(getActivity().getApplicationContext(), hexString, Toast.LENGTH_LONG)
+                 .show();
         });
         return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
+    public void onButtonPressed(Uri uri){
+        if(mListener != null){
             mListener.onFragmentInteraction(uri);
         }
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach(){
         super.onDetach();
         mListener = null;
     }
@@ -101,7 +100,7 @@ public class ColorChooser extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnFragmentInteractionListener{
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }

@@ -21,14 +21,8 @@ import com.project.one.R;
 public class Calculator extends Fragment{
 
     View view;
-
-    enum Operation{
-        ADD, SUBTRACT, MULTIPLY, DIVIDE, NOTHING
-    }
-
     private double buffer, memory;
     private Operation whatToDo;
-
     public Calculator(){
         this.buffer = 0;
         this.memory = 0;
@@ -224,5 +218,9 @@ public class Calculator extends Fragment{
      */
     private void updateDisplay(String whatToDisplay){
         ((TextView) this.view.findViewById(R.id.display)).setText(whatToDisplay);
+    }
+
+    enum Operation{
+        ADD, SUBTRACT, MULTIPLY, DIVIDE, NOTHING
     }
 }
