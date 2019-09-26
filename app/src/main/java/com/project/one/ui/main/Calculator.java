@@ -80,8 +80,12 @@ public class Calculator extends Fragment {
         // Inflate the layout for this fragment
         this.view = inflater.inflate(R.layout.fragment_calculator, container, false);
 
+        // All the button clicks are below
         view.findViewById(R.id.zero).setOnClickListener(v -> {
             typeNumber((short) 0);
+            if (this.buffer == 0){
+                updateDisplay("0");
+            }
         });
         view.findViewById(R.id.one).setOnClickListener(v -> {
             typeNumber((short) 1);
@@ -112,13 +116,10 @@ public class Calculator extends Fragment {
         });
         view.findViewById(R.id.delete).setOnClickListener(v -> {
             this.buffer = this.buffer / 10;
-            updateDisplay();
+            updateDisplay(this.buffer);
         });
         view.findViewById(R.id.clear).setOnClickListener(v -> {
-            this.buffer = 0;
-            this.memory = 0;
-            this.whatToDo = Operation.NOTHING;
-            updateDisplay("");
+            clear();
         });
         view.findViewById(R.id.equals).setOnClickListener(v -> {
             doEquals();
@@ -139,6 +140,18 @@ public class Calculator extends Fragment {
         return view;
     }
 
+    private void clear() {
+        this.buffer = 0;
+        this.memory = 0;
+        this.whatToDo = Operation.NOTHING;
+        updateDisplay("");
+    }
+
+    /**
+     * Queues the operation specified.
+     *
+     * @param whatToDo
+     */
     private void prepareOperation(Operation whatToDo) {
         if (this.whatToDo != Operation.NOTHING) {
             doEquals();
@@ -146,9 +159,12 @@ public class Calculator extends Fragment {
         this.memory = this.buffer;
         this.buffer = 0;
         this.whatToDo = whatToDo;
-        updateDisplay();
+        updateDisplay(this.buffer);
     }
 
+    /**
+     * Does any pending operations and displays the result.
+     */
     private void doEquals() {
         switch (this.whatToDo) {
             case ADD:
@@ -161,7 +177,14 @@ public class Calculator extends Fragment {
                 this.buffer = this.memory * this.buffer;
                 break;
             case DIVIDE:
-                this.buffer = this.memory / this.buffer;
+                try {
+                    this.buffer = this.memory / this.buffer;
+                } catch (ArithmeticException e) {
+                    Toast.makeText(getActivity().getApplicationContext(), "One cannot simply divide by zero.", Toast.LENGTH_LONG).show();
+                    clear();
+                    updateDisplay("ERROR");
+                    return;
+                }
                 break;
             case NOTHING:
                 break;
@@ -170,23 +193,41 @@ public class Calculator extends Fragment {
         }
         this.memory = 0;
         this.whatToDo = Operation.NOTHING;
-        updateDisplay();
+        updateDisplay(this.buffer);
     }
 
+    /**
+     * Appends digit to end of number then updates display.
+     * Does this by mutiplying current number by 10, then adding number.
+     *
+     * @param number
+     */
     private void typeNumber(short number) {
         this.buffer = this.buffer * 10 + number;
-        updateDisplay();
+        updateDisplay(this.buffer);
     }
 
-    private void updateDisplay() {
-        if (this.buffer == 0) {
+    /**
+     * Updates the calculator display with the specified number.
+     * If 0, it will display blank..
+     *
+     * @param number
+     */
+    private void updateDisplay(int number) {
+        if (number == 0) {
             updateDisplay("");
-        } else {
-            updateDisplay(Integer.toString(this.buffer));
+        }
+        else {
+            updateDisplay(Integer.toString(number));
         }
 
     }
 
+    /**
+     * Updates display with specified string.
+     *
+     * @param whatToDisplay
+     */
     private void updateDisplay(String whatToDisplay) {
         ((TextView) this.view.findViewById(R.id.display)).setText(whatToDisplay);
     }
