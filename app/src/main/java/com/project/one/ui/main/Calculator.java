@@ -114,6 +114,7 @@ public class Calculator extends Fragment {
         view.findViewById(R.id.clear).setOnClickListener(v -> {
             this.buffer = 0;
             this.memory = 0;
+            this.whatToDo = Operation.NOTHING;
             updateDisplay("");
         });
         view.findViewById(R.id.equals).setOnClickListener(v -> {
