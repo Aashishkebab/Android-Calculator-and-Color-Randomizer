@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -28,6 +29,8 @@ public class Calculator extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    View view;
 
     enum Operation {
         ADD, SUBTRACT, MULTIPLY, DIVIDE, NOTHING;
@@ -75,7 +78,7 @@ public class Calculator extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_calculator, container, false);
+        this.view = inflater.inflate(R.layout.fragment_calculator, container, false);
 
         view.findViewById(R.id.one).setOnClickListener(v -> {
             typeNumber((short) 1);
@@ -137,6 +140,7 @@ public class Calculator extends Fragment {
         this.memory = this.buffer;
         this.buffer = 0;
         this.whatToDo = whatToDo;
+        updateDisplay();
     }
 
     private void doEquals() {
@@ -160,9 +164,15 @@ public class Calculator extends Fragment {
         }
         this.memory = 0;
         this.whatToDo = Operation.NOTHING;
+        updateDisplay();
     }
 
     private void typeNumber(short number) {
         this.buffer = this.buffer * 10 + number;
+        updateDisplay();
+    }
+
+    private void updateDisplay() {
+        ((TextView) this.view.findViewById(R.id.display)).setText(this.buffer);
     }
 }
