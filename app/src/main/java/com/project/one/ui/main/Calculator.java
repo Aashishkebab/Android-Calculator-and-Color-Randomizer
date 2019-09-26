@@ -36,7 +36,7 @@ public class Calculator extends Fragment {
         ADD, SUBTRACT, MULTIPLY, DIVIDE, NOTHING;
     }
 
-    private int buffer, memory;
+    private long buffer, memory;
     private Operation whatToDo;
 
     public Calculator() {
@@ -213,12 +213,12 @@ public class Calculator extends Fragment {
      *
      * @param number
      */
-    private void updateDisplay(int number) {
+    private void updateDisplay(long number) {
         if (number == 0) {
             updateDisplay("");
         }
         else {
-            updateDisplay(Integer.toString(number));
+            updateDisplay(Long.toString(number));
         }
 
     }

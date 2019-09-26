@@ -178,7 +178,7 @@
             android:layout_height="wrap_content"
             android:text="Hi!"
             android:textAlignment="textEnd"
-            android:textSize="66sp"
+            android:textSize="55sp"
             android:layout_marginBottom="25dp"
             app:layout_constraintBottom_toTopOf="@+id/delete"
             app:layout_constraintEnd_toEndOf="parent" />
