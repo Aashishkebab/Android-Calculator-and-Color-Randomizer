@@ -80,6 +80,9 @@ public class Calculator extends Fragment {
         // Inflate the layout for this fragment
         this.view = inflater.inflate(R.layout.fragment_calculator, container, false);
 
+        view.findViewById(R.id.zero).setOnClickListener(v -> {
+            typeNumber((short) 0);
+        });
         view.findViewById(R.id.one).setOnClickListener(v -> {
             typeNumber((short) 1);
         });
