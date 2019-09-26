@@ -1,6 +1,7 @@
 package com.project.one.ui.main;
 
 import android.content.Context;
+import android.graphics.Color;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -31,9 +32,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch(position){
             case 0:
-                return new ColorChooser();
+                return ColorChooser.newInstance();
             case 1:
-                return new Calculator();
+                return Calculator.newInstance();
             default:
                 return null;
         }
@@ -42,7 +43,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return mContext.getResources().getString(TAB_TITLES[position]);
+        switch(position){
+            case 0:
+                return ColorChooser.getTitle();
+            case 1:
+                return Calculator.getTitle();
+            default:
+                return null;
+        }
     }
 
     @Override

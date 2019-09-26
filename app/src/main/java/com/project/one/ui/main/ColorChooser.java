@@ -45,13 +45,15 @@ public class ColorChooser extends Fragment {
      * @return A new instance of fragment ColorChooser.
      */
     // TODO: Rename and change types and number of parameters
-    public static ColorChooser newInstance(String param1, String param2) {
+    public static ColorChooser newInstance() {
         ColorChooser fragment = new ColorChooser();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static CharSequence getTitle() {
+        return "Random color chooser";
     }
 
     @Override
@@ -74,17 +76,6 @@ public class ColorChooser extends Fragment {
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
         }
     }
 
