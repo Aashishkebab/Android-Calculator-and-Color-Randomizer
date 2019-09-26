@@ -140,6 +140,10 @@ public class Calculator extends Fragment{
      * @param whatToDo
      */
     private void prepareOperation(Operation whatToDo){
+        if(checkError()){
+            return;
+        }
+
         if(this.whatToDo != Operation.NOTHING){
             try{
                 doEquals();
@@ -154,11 +158,19 @@ public class Calculator extends Fragment{
         updateDisplay(this.buffer);
     }
 
+    private boolean checkError(){
+        return ((TextView) this.view.findViewById(R.id.display)).getText().equals("ERROR");
+    }
+
 
     /**
      * Does any pending operation and returns the result
      */
     private void doEquals(){
+        if(checkError()){
+            return;
+        }
+
         switch(this.whatToDo){
             case ADD:
                 this.buffer = this.memory + this.buffer;
@@ -171,7 +183,7 @@ public class Calculator extends Fragment{
                 break;
             case DIVIDE:
                 this.buffer = this.memory / this.buffer;
-                if(Double.toString(this.buffer).equals("Infinity")){
+                if(Double.toString(this.buffer).equals("Infinity") || Double.toString(this.buffer).equals("NaN")){
                     throw new ArithmeticException();
                 }
                 break;
