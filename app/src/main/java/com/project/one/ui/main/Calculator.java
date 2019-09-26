@@ -221,7 +221,7 @@ public class Calculator extends Fragment{
      * @param number
      */
     private void updateDisplay(double number){
-        if(number % 1 > 0){
+        if(number % 1 != 0){
             updateDisplay(Double.toString(number));
         }
         else{
