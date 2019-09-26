@@ -20,7 +20,7 @@ import com.project.one.R;
  * Use the {@link Calculator#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Calculator extends Fragment {
+public class Calculator extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,14 +32,14 @@ public class Calculator extends Fragment {
 
     View view;
 
-    enum Operation {
+    enum Operation{
         ADD, SUBTRACT, MULTIPLY, DIVIDE, NOTHING;
     }
 
-    private long buffer, memory;
+    private double buffer, memory;
     private Operation whatToDo;
 
-    public Calculator() {
+    public Calculator(){
         this.buffer = 0;
         this.memory = 0;
         this.whatToDo = Operation.NOTHING;
@@ -49,26 +49,24 @@ public class Calculator extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment Calculator.
      */
     // TODO: Rename and change types and number of parameters
-    public static Calculator newInstance() {
+    public static Calculator newInstance(){
         Calculator fragment = new Calculator();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static CharSequence getTitle() {
+    public static CharSequence getTitle(){
         return "Calculator";
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        if(getArguments() != null){
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
@@ -76,14 +74,14 @@ public class Calculator extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState){
         // Inflate the layout for this fragment
         this.view = inflater.inflate(R.layout.fragment_calculator, container, false);
 
         // All the button clicks are below
         view.findViewById(R.id.zero).setOnClickListener(v -> {
             typeNumber((short) 0);
-            if (this.buffer == 0){
+            if(this.buffer == 0){
                 updateDisplay("0");
             }
         });
@@ -140,7 +138,7 @@ public class Calculator extends Fragment {
         return view;
     }
 
-    private void clear() {
+    private void clear(){
         this.buffer = 0;
         this.memory = 0;
         this.whatToDo = Operation.NOTHING;
@@ -152,8 +150,8 @@ public class Calculator extends Fragment {
      *
      * @param whatToDo
      */
-    private void prepareOperation(Operation whatToDo) {
-        if (this.whatToDo != Operation.NOTHING) {
+    private void prepareOperation(Operation whatToDo){
+        if(this.whatToDo != Operation.NOTHING){
             doEquals();
         }
         this.memory = this.buffer;
@@ -165,8 +163,8 @@ public class Calculator extends Fragment {
     /**
      * Does any pending operations and displays the result.
      */
-    private void doEquals() {
-        switch (this.whatToDo) {
+    private void doEquals(){
+        switch(this.whatToDo){
             case ADD:
                 this.buffer = this.memory + this.buffer;
                 break;
@@ -177,10 +175,11 @@ public class Calculator extends Fragment {
                 this.buffer = this.memory * this.buffer;
                 break;
             case DIVIDE:
-                try {
+                try{
                     this.buffer = this.memory / this.buffer;
-                } catch (ArithmeticException e) {
-                    Toast.makeText(getActivity().getApplicationContext(), "One cannot simply divide by zero.", Toast.LENGTH_LONG).show();
+                }catch(ArithmeticException e){
+                    Toast.makeText(getActivity().getApplicationContext(),
+                                   "One cannot simply divide by zero.", Toast.LENGTH_LONG).show();
                     clear();
                     updateDisplay("ERROR");
                     return;
@@ -189,7 +188,8 @@ public class Calculator extends Fragment {
             case NOTHING:
                 break;
             default:
-                Toast.makeText(getActivity().getApplicationContext(), "Fatal error has occurred", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Fatal error has occurred",
+                               Toast.LENGTH_SHORT).show();
         }
         this.memory = 0;
         this.whatToDo = Operation.NOTHING;
@@ -202,7 +202,7 @@ public class Calculator extends Fragment {
      *
      * @param number
      */
-    private void typeNumber(short number) {
+    private void typeNumber(short number){
         this.buffer = this.buffer * 10 + number;
         updateDisplay(this.buffer);
     }
@@ -213,12 +213,16 @@ public class Calculator extends Fragment {
      *
      * @param number
      */
-    private void updateDisplay(long number) {
-        if (number == 0) {
+    private void updateDisplay(double number){
+        if(number == 0){
             updateDisplay("");
         }
-        else {
-            updateDisplay(Long.toString(number));
+        else{
+            if(number % 1 > 0){
+                updateDisplay(Double.toString(number));
+            }else{
+                updateDisplay(Long.toString((long)number));
+            }
         }
 
     }
@@ -228,7 +232,7 @@ public class Calculator extends Fragment {
      *
      * @param whatToDisplay
      */
-    private void updateDisplay(String whatToDisplay) {
+    private void updateDisplay(String whatToDisplay){
         ((TextView) this.view.findViewById(R.id.display)).setText(whatToDisplay);
     }
 }
