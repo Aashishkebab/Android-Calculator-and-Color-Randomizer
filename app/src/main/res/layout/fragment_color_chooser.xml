@@ -18,8 +18,8 @@
             android:id="@+id/textToRandomize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
             android:ems="10"
+            android:hint="Tap to Change Color"
             android:inputType="textMultiLine"
             android:maxLines="13" />
 
