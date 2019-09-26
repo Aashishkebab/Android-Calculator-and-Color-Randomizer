@@ -93,7 +93,7 @@ public class Calculator extends Fragment{
             typeNumber((short) 9);
         });
         view.findViewById(R.id.delete).setOnClickListener(v -> {
-            this.buffer = this.buffer / 10;
+            this.buffer = (long)(this.buffer / 10);
             updateDisplay(this.buffer);
         });
         view.findViewById(R.id.clear).setOnClickListener(v -> {
