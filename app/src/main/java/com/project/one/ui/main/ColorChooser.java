@@ -64,13 +64,18 @@ public class ColorChooser extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_color_chooser, container, false);
         view.findViewById(R.id.buttonRandomize).setOnClickListener(v -> {
+            // Create a random number within range of color values in hex, store as string
             String hexString = Integer.toHexString(new Random().nextInt(0xFFFFFF));
+            //If string isn't long enough because integer value too small, add 0s until enough preceding 0s for six hex digits
             while(hexString.length() < 6){
                 hexString = "0" + hexString;
             }
+            // Append a hashtag because Android needs it
             hexString = "#" + hexString;
+            // Set the color
             ((EditText) view.findViewById(R.id.textToRandomize))
                     .setTextColor(Color.parseColor(hexString));
+            // Toast the color as required
             Toast.makeText(getActivity().getApplicationContext(), hexString, Toast.LENGTH_LONG)
                  .show();
         });
